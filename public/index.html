@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <title>CF节点测速</title>
+  <script src="/ips.js"></script>
+  <script>
+    async function startTest() {
+      const btn = document.getElementById('btn');
+      const resultDiv = document.getElementById('result');
+      btn.disabled = true;
+      resultDiv.textContent = '测速中...';
+
+      try {
+        const res = await fetch('/speedtest', {
+          method: 'POST',
+          body: JSON.stringify({ 
+            ips: uniqueIps,
+            targetHost: 'example.com'  // 可替换为用户输入
+          }),
+          headers: { 'Content-Type': 'application/json' }
+        });
+        
+        const data = await res.json();
+        if (data.fastest) {
+          resultDiv.innerHTML = `
+            <p>✅ 最快节点: <strong>${data.fastest.ip}</strong></p>
+            <p>延迟: ${data.fastest.time}ms</p>
+            <button onclick="go()">使用该节点访问</button>
+          `;
+        } else {
+          resultDiv.textContent = '❌ 所有节点均不可用';
+        }
+      } catch (err) {
+        resultDiv.textContent = '请求失败: ' + err.message;
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    function go() {
+      const fastestIP = document.querySelector('strong').textContent;
+      window.location.href = `https://${fastestIP}/proxy/example.com`;
+    }
+  </script>
+</head>
+<body>
+  <h1>Cloudflare 节点测速工具</h1>
+  <button id="btn" onclick="startTest()">开始测速</button>
+  <div id="result"></div>
+</body>
+</html>
