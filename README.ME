@@ -1,0 +1,23 @@
+# Cloudflare 节点测速与加速系统
+
+## 🚀 部署指南
+
+### 1. 部署 Worker
+1. 安装 Wrangler CLI：`npm install -g wrangler`
+2. 登录 Cloudflare：`wrangler login`
+3. 创建 KV 命名空间：`wrangler kv:namespace create "SPEEDTEST_CACHE"`
+4. 替换 `wrangler.toml` 中的 `your-kv-namespace-id` 为实际 ID
+5. 部署 Worker：`wrangler deploy`
+
+### 2. 部署前端（GitHub Pages）
+1. 将 `public/` 推送到 GitHub 仓库
+2. 启用 GitHub Pages（Settings → Pages）
+3. 修改 `public/index.html` 中的 Worker 地址为你的实际域名
+
+### 3. 配置 CNAME
+1. 用户需将自己的域名 CNAME 指向你的 Worker 域名（如 `cf.2xnz.qzz.io`）
+2. 在 Worker 的 `domainMap` 中添加映射关系（或使用 KV 动态管理）
+
+## 📌 合法性说明
+
+本系统仅用于测试 Cloudflare 边缘节点对合法网站的访问速度，不涉及任何非法内容访问或网络审查绕过行为，符合 Cloudflare 使用条款和《网络安全法》。

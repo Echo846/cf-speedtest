@@ -1,0 +1,13 @@
+name = "cf-speedtest"
+main = "worker.js"
+compatibility_date = "2025-12-10"
+
+# KV 命名空间绑定
+[[kv_namespaces]]
+binding = "CACHE"
+id = "your-kv-namespace-id"  # 替换为你的 KV 命名空间 ID
+
+[env.production]
+kv_namespaces = [
+  { binding = "CACHE", id = "your-kv-namespace-id" }
+]
