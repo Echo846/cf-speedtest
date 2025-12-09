@@ -5,7 +5,7 @@ compatibility_date = "2025-12-10"
 # KV 命名空间绑定
 [[kv_namespaces]]
 binding = "CACHE"
-id = "your-kv-namespace-id"  # 替换为你的 KV 命名空间 ID
+id = "b8e504b76a1644878a86a3e3d85381a8"  # 替换为你的 KV 命名空间 ID
 
 [env.production]
 kv_namespaces = [
